@@ -13,5 +13,6 @@ Docker setup is not part of this manual.
 * Install the latest Blackmagic drivers on the system.
 * Create a obe Docker container with the following command:
 sudo docker run -t --name obe --privileged -v /dev/blackmagic:/dev/blackmagic -v /etc/blackmagic/BlackmagicPreferences.xml:/etc/blackmagic/BlackmagicPreferences.xml trickkiste/docker-stackbrew-obe-rt-custom
+* stop the container so startup can be managed by Upstart: sudo docker kill obe
 * Start OBE with: sudo start obe-docker
 * Watch what is going on with: sudo tmux a -t obe
