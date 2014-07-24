@@ -15,7 +15,7 @@ ENV HOME /tmp
 
 RUN wget --quiet -O /tmp/yasm-1.2.0.tar.gz http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz && cd /tmp && tar -zxvf yasm-1.2.0.tar.gz && cd yasm-1.2.0/ && ./configure --prefix=/usr && make -j5 && make install
 
-RUN apt-get install -y libtwolame-dev autoconf libtool
+RUN apt-get install -y libtwolame-dev autoconf libtool 
 RUN cd /tmp && git clone https://github.com/ob-encoder/fdk-aac.git && cd /tmp/fdk-aac && autoreconf -i && ./configure --prefix=/usr --enable-shared && make -j5 && make install
 RUN cd /tmp && git clone https://github.com/ob-encoder/libav-obe.git && cd /tmp/libav-obe && ./configure --prefix=/usr --enable-gpl --enable-nonfree --enable-libfdk-aac --disable-swscale-alpha --disable-avdevice && make -j5 && make install
 RUN cd /tmp && git clone https://github.com/ob-encoder/x264-obe.git && cd /tmp/x264-obe && ./configure --prefix=/usr --disable-lavf --disable-swscale --disable-opencl && make -j5 && make install-lib-static
@@ -29,9 +29,12 @@ RUN cd /tmp && git clone https://github.com/ob-encoder/obe-rt.git && cd /tmp/obe
 # Remove things for building modules
 RUN rm -r /tmp/*
 
-RUN apt-get remove -y libreadline-dev libzvbi-dev libtwolame-dev autoconf libtool curl wget git
+RUN apt-get install -y libtwolame0
+RUN apt-get remove -y libreadline-dev libzvbi-dev libtwolame-dev 
+RUN apt-get remove -y autoconf libtool curl wget git
 RUN apt-get remove -y manpages manpages-dev g++ g++-4.6 build-essential
 RUN apt-get autoclean -y
+RUN apt-get autoremove -y
 RUN apt-get clean -y
 
 RUN     useradd -m default
@@ -41,7 +44,5 @@ WORKDIR /home/default
 USER    default
 ENV     HOME /home/default
 
-#EXPOSE 5250
-#CMD ["-c", "/etc/melted/melted.conf","-nodetach"]
-ENTRYPOINT ["obe"]
+ENTRYPOINT ["/usr/bin/obecli"]
 
