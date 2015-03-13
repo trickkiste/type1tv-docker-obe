@@ -18,6 +18,7 @@ RUN wget --quiet -O /tmp/yasm-1.2.0.tar.gz http://www.tortall.net/projects/yasm/
   cd /tmp && tar -zxvf yasm-1.2.0.tar.gz && \
   cd yasm-1.2.0/ && ./configure --prefix=/usr && make -j5 && make install && \
   \
+  apt-get update && \
   apt-get install -y libtwolame-dev autoconf libtool && \
   \
   cd /tmp && git clone https://github.com/ob-encoder/fdk-aac.git && \
