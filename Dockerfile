@@ -10,7 +10,7 @@ RUN wget --quiet -O /tmp/yasm-1.2.0.tar.gz http://www.tortall.net/projects/yasm/
   cd yasm-1.2.0/ && ./configure --prefix=/usr && make -j5 && make install && \
   \
   apt-get update && \
-  apt-get install -y libtwolame-dev autoconf libtool git && \
+  apt-get install -y libtwolame-dev autoconf libtool git build-essential && \
   \
   cd /tmp && git clone https://github.com/ob-encoder/fdk-aac.git && \
   cd /tmp/fdk-aac && autoreconf -i && ./configure --prefix=/usr --enable-shared && make -j5 && make install && \
@@ -35,7 +35,7 @@ RUN wget --quiet -O /tmp/yasm-1.2.0.tar.gz http://www.tortall.net/projects/yasm/
   apt-get install -y libtwolame0 && \
   \
   apt-get remove -y libreadline-dev libzvbi-dev libtwolame-dev \
-  autoconf libtool curl wget git \
+  autoconf libtool git \
   manpages manpages-dev g++ g++-4.6 build-essential && \
   \
   apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
