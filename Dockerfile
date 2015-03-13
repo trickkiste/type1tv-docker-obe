@@ -10,7 +10,7 @@ RUN wget --quiet -O /tmp/yasm-1.2.0.tar.gz http://www.tortall.net/projects/yasm/
   cd yasm-1.2.0/ && ./configure --prefix=/usr && make -j5 && make install && \
   \
   apt-get update && \
-  apt-get install -y libtwolame-dev autoconf libtool && \
+  apt-get install -y libtwolame-dev autoconf libtool git && \
   \
   cd /tmp && git clone https://github.com/ob-encoder/fdk-aac.git && \
   cd /tmp/fdk-aac && autoreconf -i && ./configure --prefix=/usr --enable-shared && make -j5 && make install && \
