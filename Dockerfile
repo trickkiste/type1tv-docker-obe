@@ -1,4 +1,4 @@
-FROM trickkiste/ubuntu-decklink
+FROM ubuntu
 MAINTAINER Markus Kienast <mark@trickkiste.at>
 ENV DEBIAN_FRONTEND noninteractive
 ENV HOME /tmp
@@ -7,6 +7,8 @@ WORKDIR /tmp
 # Download all dependencies and build OBE
 RUN apt-get update && \
     apt-get install -y git wget curl build-essential && \
+    apt-get install -y wget libjpeg62 libgl1-mesa-glx libxml2 && \
+    \
     wget --quiet -O /tmp/yasm-1.2.0.tar.gz http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz && \
     cd /tmp && tar -zxvf yasm-1.2.0.tar.gz && \
     cd yasm-1.2.0/ && ./configure --prefix=/usr && make -j5 && make install && \
@@ -28,10 +30,16 @@ RUN apt-get update && \
     cd /tmp/libmpegts-obe && ./configure --prefix=/usr && make -j5 && make install && \
     \
     apt-get install -y libzvbi0 libzvbi-dev libzvbi-common libreadline-dev && \
+    \
+    wget --quiet -O /tmp/Blackmagic_Desktop_Video_Linux_10.1.1.tar.gz http://software.blackmagicdesign.com/DesktopVideo/Blackmagic_Desktop_Video_Linux_10.1.1.tar.gz && \
+    cd /tmp && tar xvfz /tmp/Blackmagic_Desktop_Video_Linux_10.1.1.tar.gz && \
+    dpkg --force-depends -i /tmp/DesktopVideo_10.1.1/deb/amd64/desktopvideo_10.1.1a26_amd64.deb && \
+    \
     cd /tmp && git clone https://github.com/ob-encoder/obe-rt.git && \
     cd /tmp/obe-rt && export PKG_CONFIG_PATH=/usr/lib/pkgconfig && \
     ./configure --prefix=/usr && make -j5 && make install && \
-    rm -r /tmp/* && \
+    \
+    dpkg -r desktopvideo && \
     \
     apt-get install -y libtwolame0 && \
     \
@@ -39,7 +47,9 @@ RUN apt-get update && \
     autoconf libtool git wget curl \
     manpages manpages-dev g++ g++-4.6 build-essential && \
     \
-    apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+    apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* && \
+    dpkg --force-depends -i /tmp/DesktopVideo_10.1.1/deb/amd64/desktopvideo_10.1.1a26_amd64.deb && \
+    rm -r /tmp/*
 
 RUN     useradd -m default
 
