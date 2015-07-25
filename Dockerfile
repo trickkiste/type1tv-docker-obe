@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:trusty
 MAINTAINER Markus Kienast <mark@trickkiste.at>
 ENV DEBIAN_FRONTEND noninteractive
 ENV HOME /tmp
