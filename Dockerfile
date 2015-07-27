@@ -41,7 +41,6 @@ RUN apt-get update && \
     \
     dpkg -r desktopvideo && \
     \
-    rm -rf /tmp && \
     apt-get install -y libtwolame0 && \
     \
     apt-get remove -y libreadline-dev libzvbi-dev libtwolame-dev \
