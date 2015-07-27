@@ -52,6 +52,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -r /tmp/*
 
+COPY obe.conf /etc/obe.conf
 RUN     useradd -m default
 
 WORKDIR /home/default
@@ -59,4 +60,5 @@ WORKDIR /home/default
 USER    default
 ENV     HOME /home/default
 
+CMD ["--config-file=/etc/obe.conf"]
 ENTRYPOINT ["/usr/bin/obecli"]
