@@ -35,12 +35,13 @@ RUN apt-get update && \
     cd /tmp && tar xvfz /tmp/Blackmagic_Desktop_Video_Linux_10.1.1.tar.gz && \
     dpkg --force-depends -i /tmp/DesktopVideo_10.1.1/deb/amd64/desktopvideo_10.1.1a26_amd64.deb && \
     \
-    cd /tmp && git clone https://github.com/ob-encoder/obe-rt.git && \
+    cd /tmp && git clone -b config-file https://github.com/gfto/obe-rt.git && \
     cd /tmp/obe-rt && export PKG_CONFIG_PATH=/usr/lib/pkgconfig && \
     ./configure --prefix=/usr && make -j5 && make install && \
     \
     dpkg -r desktopvideo && \
     \
+    rm -rf /tmp && \
     apt-get install -y libtwolame0 && \
     \
     apt-get remove -y libreadline-dev libzvbi-dev libtwolame-dev \
