@@ -48,8 +48,9 @@ RUN apt-get update && \
     autoconf libtool git wget curl \
     manpages manpages-dev g++ g++-4.6 build-essential && \
     \
-    apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* && \
+    apt-get autoclean -y && apt-get autoremove -y && apt-get clean -y && \
     dpkg --force-depends -i /tmp/DesktopVideo_10.1.1/deb/amd64/desktopvideo_10.1.1a26_amd64.deb && \
+    rm -rf /var/lib/apt/lists/* && \
     rm -r /tmp/*
 
 RUN     useradd -m default
