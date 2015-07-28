@@ -52,5 +52,4 @@ WORKDIR /home/default
 USER    default
 ENV     HOME /home/default
 
-CMD ["--config-file=/etc/obe.conf"]
-ENTRYPOINT ["/usr/bin/obecli"]
+CMD ["/usr/bin/obecli","--config-file=/etc/obe.conf"]
